@@ -43,14 +43,6 @@ class ListField extends Field {
 		return true;
 	}
 
-	/**
-	 * Get type of field
-	 *
-	 * @return string type of field
-	 */
-	public function getType() {
-		return "check";
-	}
 
 	/**
 	 * Get type of field
