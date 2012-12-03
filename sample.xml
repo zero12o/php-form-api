@@ -1,0 +1,67 @@
+<form>
+<fields name="sample" title="0" table="users" mode="POST">
+	<field id="1" name="user" label="1" type="text" length="20" maxlength="20" help="11" requested="yes">default</field>
+	<field id="2" name="birth" label="2" type="text" length="12" maxlength="12" help="12" requested="yes" regexp="^[12][0-9]{3}([-\.][01]?[1-9]){2}\.?$">1958.12.04.</field>
+	<field id="3" name="hobbycheck" label="5" type="check" length="3" help="12">
+		2 <!-- default -->
+		<option>51</option>
+		<option>52</option>
+		<option>53</option>
+		<option>54</option>
+		<option>55</option>
+	</field>
+	<field id="4" name="hobbyradio" label="5" type="radio" help="12">
+		-1
+		<option>51</option>
+		<option>52</option>
+		<option>53</option>
+	</field>
+	<field id="5" name="hobbylist" label="5" type="list" help="12">
+		2 <!-- default -->
+		<option>51</option>
+		<option>52</option>
+		<option>53</option>
+	</field>
+	<field id="6" name="hobbylist1" label="5" type="list" length="3" help="12">
+		2 <!-- default -->
+		<option>51</option>
+		<option>52</option>
+		<option>53</option>
+		<option>54</option>
+		<option>55</option>
+	</field>
+	<field id="7" name="img" label="61" type="file" help="12"></field>
+	<field id="8" name="submit" label="3" type="submit"></field>
+	<field id="9" name="reset" label="4" type="reset"></field>
+</fields>
+<messages>
+	<message id="0" language="hu">Minta urlap</message>
+	<message id="0" language="en">Sample form</message>
+	<message id="1" language="hu">Nev</message>
+	<message id="1" language="en">Name</message>
+	<message id="11" language="hu">Adja meg a nevet!</message>
+	<message id="11" language="en">Please input your name.</message>
+	<message id="2" language="hu">Szuletesi datum</message>
+	<message id="2" language="en">Date of birth</message>
+	<message id="12" language="hu">Irja be a szuletesi datumat!</message>
+	<message id="12" language="en">Please input your date of birth.</message>
+	<message id="3" language="en">Submit</message>
+	<message id="3" language="hu">Elkuld</message>
+	<message id="4" language="en">Reset</message>
+	<message id="4" language="hu">Visszaallit</message>
+	<message id="5" language="en">Hobby</message>
+	<message id="5" language="hu">Hobbi</message>
+	<message id="51" language="en">Cycling</message>
+	<message id="51" language="hu">Kerekparozas</message>
+	<message id="52" language="en">Handball</message>
+	<message id="52" language="hu">Kezilabda</message>
+	<message id="53" language="en">Football</message>
+	<message id="53" language="hu">Foci</message>
+	<message id="54" language="en">Tennis</message>
+	<message id="54" language="hu">Tenisz</message>
+	<message id="55" language="en">Php</message>
+	<message id="55" language="hu">Php</message>
+	<message id="61" language="en">Image file</message>
+	<message id="61" language="hu">Kep fajl</message>
+</messages>
+</form>
