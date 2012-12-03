@@ -49,7 +49,7 @@ abstract class Field {
 	 *
 	 * @return string type of field (e.g. list, button, ...)
 	 */
-	public abstract getType();
+	public abstract function getType();
 
 	/**
 	 * Get unique ID of field
@@ -67,15 +67,6 @@ abstract class Field {
 	 */
 	public function getName() {
 		return $this->name;
-	}
-
-	/**
-	 * Get type of field (i.e. list, text, button, ...) 
-	 *
-	 * @return string type of field (i.e. list, text, button, ...) 
-	 */
-	public function getType() {
-		return $this->type;
 	}
 
 	/**
