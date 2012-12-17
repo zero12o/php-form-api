@@ -69,6 +69,8 @@ class FormAPIFactory {
 
 			$id = intval((string) $f["id"]);
 			$name = (string) $f["name"];
+			$regexp = (string) $f["regexp"];
+			$requested = (string) $f["requested"];
 
 			// create text field
 			if($f["type"] == "text") {
@@ -77,9 +79,8 @@ class FormAPIFactory {
 				$length = intval((string) $f["length"]);
 				$maxlength = intval((string) $f["maxlength"]);
 				$default = intval((string) $f["default"]);
-				$regexp = intval((string) $f["regexp"]);
 
-				$fields[$id] = new TextField($id, $name, $label, $length, $maxlength, $help, $regexp);
+				$fields[$id] = new TextField($id, $name, $label, $length, $maxlength, $help);
 				$fields[$id]->setDefault($default);
 			}
 
@@ -169,6 +170,17 @@ class FormAPIFactory {
 			//TODO: Add XML process logic for further fields
 
 
+			//Set regexp and requested values
+			if($fields[$id] != null) {
+				$fields[$id]->setRegexp($regexp);
+				if($requested=="yes") {
+					$fields[$id]->setRequested(true);
+				} else {
+					$fields[$id]->setRequested(false);
+				}
+			}
+
+			echo $fields[$id]
 		}
 
 		// process messages and inject into Form object

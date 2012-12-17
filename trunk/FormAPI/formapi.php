@@ -19,6 +19,7 @@ class FormAPI {
 
 	private $form;
 	private $model;
+	private $invalidRequestHandler = null;
 
 
 	/**
@@ -30,6 +31,24 @@ class FormAPI {
 	public function __construct($form, $model) {
 		$this->form = $form;
 		$this->model = $model;
+	}
+
+	/**
+	 * Get invalid request handler
+    	 *
+	 * @return function($handler) Invalid request handler instance
+	 */
+	public function getInvalidRequestHandler() {
+		return $this->invalidRequestHandler;
+	}
+
+	/**
+	 * Set invalid request handler
+    	 *
+	 * @param function($handler) $handler Invalid request handler function
+	 */
+	public function setInvalidRequestHandler($handler) {
+		$this->invalidRequestHandler = $handler;
 	}
 
 	/**
@@ -58,6 +77,11 @@ class FormAPI {
 			if (isset($request[$name])) {
 				if($f->check($request[$name]) == true) {
 					$checked_request[$name] = $request[$name];
+				} else {
+					if($this->invalidRequestHandler != null) {
+						call_user_func($this->invalidRequestHandler, $f);
+					}
+					return;
 				}
 			}
 		}
