@@ -180,7 +180,6 @@ class FormAPIFactory {
 				}
 			}
 
-			echo $fields[$id]
 		}
 
 		// process messages and inject into Form object
