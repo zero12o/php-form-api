@@ -11,9 +11,14 @@ class ResetField extends Field {
 	}
 
 	public function generate($form, $lang) {
-		$w = "<td>&nbsp;</td><td><input type=\"reset\" value=\"" .
+		$w = "<div><input type=\"reset\" value=\"" .
 					$form->getMsg($this->label, $lang) . "\" name=\"" .
-					$this->name . "\" /></td>";
+					$this->name . "\" /></div>";
+		return $w;
+	}
+
+	public function generateLabel($form, $lang) {
+		$w = "<div>&nbsp;</div>";
 		return $w;
 	}
 

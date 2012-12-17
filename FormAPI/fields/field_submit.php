@@ -11,9 +11,14 @@ class SubmitField extends Field {
 	}
 
 	public function generate($form, $lang) {
-		$w = "<td>&nbsp;</td><td><input type=\"submit\" value=\"" .
+		$w = "<div><input type=\"submit\" value=\"" .
 					$form->getMsg($this->label, $lang) . "\" name=\"" .
-					$this->name . "\" /></td>";
+					$this->name . "\" /></div>";
+		return $w;
+	}
+
+	public function generateLabel($form, $lang) {
+		$w = "<div>&nbsp;</div>";
 		return $w;
 	}
 

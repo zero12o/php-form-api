@@ -18,9 +18,7 @@ class RadioField extends Field {
 	}
 
 	public function generate($form, $lang) {
-		$w = "<td class=\"labelc\">" . 
-				$form->getMsg($this->label, $lang) . "</td>";
-			$w .= "<td class=\"textc\">";
+			$w = "<div class=\"textc\">";
 			for ($i=0; $i < count($this->options);$i++) {
 				if ($this->length > 0 && $i > 0 && $i % $this->length == 0) {
 					$w .= "<br />";
@@ -32,7 +30,13 @@ class RadioField extends Field {
 				$w .= " value=\"" . $this->name . $i . "\" />" .
 					$form->getMsg($this->options[$i], $lang) . " ";
 			}
-			$w .= "</td>";
+			$w .= "</div>";
+		return $w;
+	}
+
+	public function generateLabel($form, $lang) {
+		$w = "<div class=\"labelc\">" . 
+				$form->getMsg($this->label, $lang) . "</div>";
 		return $w;
 	}
 

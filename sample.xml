@@ -3,7 +3,7 @@
 	<field id="1" name="user" label="1" type="text" length="20" maxlength="20" help="11" requested="yes">default</field>
 	<field id="2" name="birth" label="2" type="text" length="12" maxlength="12" help="12" requested="yes" regexp="/^[0-9]{4}.[0-9]{2}.[0-9]{2}$/">1958.12.04.</field>
 	<field id="3" name="hobbycheck" label="5" type="check" length="3" help="12">
-		2 <!-- default -->
+		2 
 		<option>51</option>
 		<option>52</option>
 		<option>53</option>
@@ -17,13 +17,13 @@
 		<option>53</option>
 	</field>
 	<field id="5" name="hobbylist" label="5" type="list" help="12">
-		2 <!-- default -->
+		2 
 		<option>51</option>
 		<option>52</option>
 		<option>53</option>
 	</field>
 	<field id="6" name="hobbylist1" label="5" type="list" length="3" help="12">
-		2 <!-- default -->
+		2 
 		<option>51</option>
 		<option>52</option>
 		<option>53</option>
@@ -32,7 +32,7 @@
 	</field>
 	<field id="7" name="img" label="61" type="file" help="12"></field>
 	<field id="8" name="submit" label="3" type="submit"></field>
-	<field id="9" name="reset" label="4" type="reset"></field>
+	<field id="9" name="reset" label="4" type="reset"></field> 
 </fields>
 <messages>
 	<message id="0" language="hu">Minta urlap</message>

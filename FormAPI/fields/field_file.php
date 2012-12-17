@@ -17,15 +17,20 @@ class FileField extends Field {
 	}
 
 	public function generate($form, $lang) {
-		$w = "<td class=\"labelc\">" . 
-				$form->getMsg($this->label, $lang) . "</td>";
-			$w .= "<td class=\"filec\">";
+		$w = "<div class=\"filec\">";
 			if ($this->maxlength > 0)  {
 				$w .="<input type=\"hidden\" name=\"MAX_FILE_SIZE\" value=\"" .
 				$this->maxlength . "\" />";
 			}
 			$w .= "<input type=\"file\" size=\"" . $this->length .
-				"\" name=\"" . $this->name . "\" /></td>";
+				"\" name=\"" . $this->name . "\" /></div>";
+		return $w;
+	}
+
+
+	public function generateLabel($form, $lang) {
+		$w = "<div class=\"labelc\">" . 
+				$form->getMsg($this->label, $lang) . "</div>";
 		return $w;
 	}
 
