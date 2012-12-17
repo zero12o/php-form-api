@@ -36,10 +36,6 @@ class RadioField extends Field {
 		return $w;
 	}
 
-	public function check($value) {
-		return true;
-	}
-
 	/**
 	 * Get type of field
 	 *

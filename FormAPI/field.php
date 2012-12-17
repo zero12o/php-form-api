@@ -22,6 +22,7 @@ abstract class Field {
 	protected $name;
 	protected $requested = false;
 	protected $default = -1;
+	protected $regexp = "";
 
 	/**
 	 * Abstract function that responsible for creating HTML code of the field. When implemented
@@ -33,16 +34,6 @@ abstract class Field {
 	 * @return string HTML code of form as string
 	 */
 	public abstract function generate($form, $lang);
-
-	/**
-	 * Abstract function that responsible for validating values. It can be used for checking
-	 * response values from clients.
-	 *
-	 * @param string $value value that has to be checked
- 	 *
-	 * @return boolean true, if the value is valid, false otherwise
-	 */
-	public abstract function check($value);
 
 	/**
 	 * Get type of field
@@ -58,6 +49,15 @@ abstract class Field {
 	 */
 	public function getId() {
 		return $this->id;
+	}
+
+	/**
+	 * Get ID for generate HTML code. This ID will represents the field in the HTML code.
+	 *
+	 * @return int HTML ID of the field
+	 */
+	public function getHtmlId() {
+		return "FAPI_" . $this->getType() . "_" . $this->id;
 	}
 
 	/**
@@ -106,6 +106,25 @@ abstract class Field {
 	}
 
 	/**
+	 * Set regexp
+	 *
+	 * @param string $regexp Regexp as a string
+	 */
+	public function setRegexp($regexp) {
+		$this->regexp = $regexp;
+	}
+
+	/**
+	 * Get actual regexp
+	 *
+	 * @return string Actual regexp as a string, it is "" if no regexp has been specified
+	 */
+	public function getRegexp() {
+		return $this->regexp;
+	}
+
+
+	/**
 	 * Convert field definition to string (only for debugging)
 	 *
 	 * @return string
@@ -116,6 +135,32 @@ abstract class Field {
 			$w .= " " . $attr . ":" . $val;
 		}
 		return $w;
+	}
+
+	/**
+	 * Function that responsible for validating values. It can be used for checking
+	 * response values from clients.
+	 *
+	 * @param string $value value that has to be checked
+ 	 *
+	 * @return boolean true, if the value is valid, false otherwise
+	 */
+	public function check($value) {
+
+		if($this->requested==true and ($value=="" or $value==null)) {
+			return false;
+		}
+		
+		// if regexp has not been specified, accept all value
+		if($this->regexp=="" or $this->regexp==null) {
+			return true;
+		}
+
+		if(preg_match($this->regexp, $value)) {
+			return true;
+		}
+
+		return false;
 	}
 }
 

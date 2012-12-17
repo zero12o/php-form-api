@@ -5,16 +5,14 @@ class TextField extends Field {
 	protected $help = -1;
 	protected $length = 20;
 	protected $maxlength = 50;
-	protected $regexp = "";
 	
-	public function __construct($id, $name, $label, $length, $maxlength, $help, $regexp) {
+	public function __construct($id, $name, $label, $length, $maxlength, $help) {
 		$this->id = $id;
 		$this->name = $name;
 		$this->label = $label;
 		$this->length = $length;
 		$this->maxlength = $maxlength;
 		$this->help = $help;
-		$this->regexp = $regexp;
 	}
 
 	public function generate($form, $lang) {
@@ -26,10 +24,6 @@ class TextField extends Field {
 				$this->default . "\" name=\"" .
 				$this->name . "\" /></td>";
 		return $w;
-	}
-
-	public function check($value) {
-		return true;
 	}
 
 	/**
