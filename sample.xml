@@ -31,6 +31,7 @@
 		<option>55</option>
 	</field>
 	<field id="7" name="img" label="61" type="file" help="12"></field>
+	<field id="10" name="zipcode" label="101" type="zipcode" length="4" maxlength="4" help="12" requested="yes" regexp="/^[1-9]{1}[0-9]{3}$/">1111</field>
 	<field id="8" name="submit" label="3" type="submit"></field>
 	<field id="9" name="reset" label="4" type="reset"></field> 
 </fields>
@@ -63,5 +64,7 @@
 	<message id="55" language="hu">Php</message>
 	<message id="61" language="en">Image file</message>
 	<message id="61" language="hu">Kep fajl</message>
+	<message id="101" language="hu">Iranyitoszam</message>
+	<message id="101" language="en">Zipcode</message>
 </messages>
 </form>

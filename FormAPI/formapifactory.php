@@ -170,6 +170,17 @@ class FormAPIFactory {
 
 			//TODO: Add XML process logic for further fields
 
+			// create Zipcode field
+			if($f["type"] == "zipcode") {
+				$label = intval((string) $f["label"]);
+				$help = intval((string) $f["help"]);
+				$length = intval((string) $f["length"]);
+				$maxlength = intval((string) $f["maxlength"]);
+				$default = intval((string) $f["default"]);
+
+				$fields[$id] = new ZipCodeField($id, $name, $label, $length, $maxlength, $help);
+				$fields[$id]->setDefault($default);
+			}
 
 			//Set regexp and requested values
 			if($fields[$id] != null) {
