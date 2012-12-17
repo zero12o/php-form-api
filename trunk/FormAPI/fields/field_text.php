@@ -16,15 +16,20 @@ class TextField extends Field {
 	}
 
 	public function generate($form, $lang) {
-			$w = "<td class=\"labelc\">" . 
-				$form->getMsg($this->label, $lang) . "</td>";
-			$w .= "<td class=\"textc\"><input type=\"text\" maxlength=\"" .
+			$w = "<div class=\"textc\"><input type=\"text\" maxlength=\"" .
 				$this->maxlength . "\" size=\"" .
 				$this->length . "\" value=\"" .
 				$this->default . "\" name=\"" .
-				$this->name . "\" /></td>";
+				$this->name . "\" /></div>";
 		return $w;
 	}
+
+	public function generateLabel($form, $lang) {
+			$w = "<div class=\"labelc\">" . 
+				$form->getMsg($this->label, $lang) . "</div>";
+		return $w;
+	}
+
 
 	/**
 	 * Get type of field

@@ -71,6 +71,7 @@ class FormAPIFactory {
 			$name = (string) $f["name"];
 			$regexp = (string) $f["regexp"];
 			$requested = (string) $f["requested"];
+			unset($options);
 
 			// create text field
 			if($f["type"] == "text") {
@@ -91,7 +92,7 @@ class FormAPIFactory {
 				$help = intval((string) $f["help"]);
 				$default = intval((string) $f["default"]);
 
-				if (isset($f->option)) {
+				if (isset($f->option)) {					
 					foreach ($f->option as $o) {
 						$options[] = intval((string) $o);
 					}

@@ -8,7 +8,7 @@
 		//$w = $formapi->toString();
 		//echo $w;
 
-	    	$w = $formapi->generate("en", 0);
+	    	$w = $formapi->generate("en", 0, "vertical");
 	    	echo $w;
 
 	} catch (Exception $e) {

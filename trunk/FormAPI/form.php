@@ -181,10 +181,11 @@ class Form {
 	  *
 	  * @param string $lang language for the form that has been specified in XML file
 	  * @param int $full 0/1 generate only form/generate full html page
+	  * @param string $layout layout of the form  (i.e. vertical, horizontal, ...)
 	  *
 	  * @return HTML form definition as string 
 	  */
-	public function generate($lang, $full = 1) {
+	public function generate($lang, $full = 1, $layout = "vertical") {
 		$formHtml = "";
 		if ($full) {
 			$formHtml .= "<html><head><title>" .
@@ -195,19 +196,45 @@ class Form {
 		$formHtml .= "<form id=\"" . $this->id . "\" class=\"formc\" action=\"" . $this->target . "\" enctype=\"multipart/form-data\">";
 		$formHtml .= "<p class=\"titlec\">" .
 			$this->getMsg($this->title, $lang) . "</P>";
-		$formHtml .= "<table class=\"formtable\">";
 
-		foreach ($this->fields as $f) {
+		if($layout == "horizontal") {
+			$formHtml .= "<table class=\"formtable\">";
 			$formHtml .= "<tr>";
-			$formHtml .= $f->generate($this, $lang);
+			foreach ($this->fields as $f) {
+				$formHtml .= "<td> <center>";
+				$formHtml .= $f->generateLabel($this, $lang);
+				$formHtml .= "</center> </td>";
+			}
 			$formHtml .= "</tr>";
+			$formHtml .= "<tr>";
+			foreach ($this->fields as $f) {
+				$formHtml .= "<td> <center>";
+				$formHtml .= $f->generate($this, $lang);
+				$formHtml .= "</center> </td>";
+			}
+			$formHtml .= "</tr>";
+			$formHtml .= "</table>";
+
+		} else  {
+			$formHtml .= "<table class=\"formtable\">";
+			foreach ($this->fields as $f) {
+				$formHtml .= "<tr>";
+				$formHtml .= "<td>";
+				$formHtml .= $f->generateLabel($this, $lang);
+				$formHtml .= "</td>";
+				$formHtml .= "<td>";
+				$formHtml .= $f->generate($this, $lang);
+				$formHtml .= "</td>";
+				$formHtml .= "</tr>";
+			}
+			$formHtml .= "</table>";
 		}
 
-		$formHtml .= "</table>";
 		$formHtml .= "</form>";
 		if ($full) {
 			$formHtml .= "</body></html>";
 		}
+
 		return $formHtml;
 	}
 

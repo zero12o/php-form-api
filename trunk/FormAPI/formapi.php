@@ -56,11 +56,12 @@ class FormAPI {
 	 *
 	 * @param string $lang language code, that has been defined in XML file of form
 	 * @param int $full 0/1 generate only form/generate full html page
+	 * @param string $layout layout of the form  (i.e. vertical, horizontal, ...)
     	 *
 	 * @return string HTML code of form 
 	 */
-	public function generate($lang, $full=1) {
-	    	return $this->form->generate($lang, $full);
+	public function generate($lang, $full=1, $layout="vertical") {
+	    	return $this->form->generate($lang, $full, $layout);
 	}
 	
 

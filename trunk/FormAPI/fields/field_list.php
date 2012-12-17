@@ -18,9 +18,8 @@ class ListField extends Field {
 	}
 
 	public function generate($form, $lang) {
-			$w = "<td class=\"labelc\">" . 
-				$form->getMsg($this->label, $lang) . "</td>";
-			$w .= "<td class=\"textc\">";
+
+			$w = "<div class=\"textc\">";
 			$w .= "<select";
 			if ($this->length) {
 				$w .= " size=\"" . (string) $this->length . "\"";
@@ -35,8 +34,15 @@ class ListField extends Field {
 					"</option>";
 			}
 			$w .= "</select>";
-			$w .= "</td>";
+			$w .= "</div>";
 		return $w;
+	}
+
+	public function generateLabel($form, $lang) {
+			$w = "<div class=\"labelc\">" . 
+				$form->getMsg($this->label, $lang) . "</div>";
+			return $w;
+		
 	}
 
 

@@ -25,15 +25,27 @@ abstract class Field {
 	protected $regexp = "";
 
 	/**
-	 * Abstract function that responsible for creating HTML code of the field. When implemented
-	 * this function the return value must contain the HTML code as string 
+	 * Abstract function that responsible for creating HTML code of the field. This code
+	 * return only the input part of the field between <div> tag.
 	 *
 	 * @param Form $form form object that contains the field instance
 	 * @param string $lang language code that has been specified in form definition in XML file
  	 *
-	 * @return string HTML code of form as string
+	 * @return string HTML code of input part of the field
 	 */
 	public abstract function generate($form, $lang);
+
+	/**
+	 * Abstract function that responsible for creating HTML code of the field. This code 
+	 * retrun only label of the field between <div> tag.
+	 *
+	 * @param Form $form form object that contains the field instance
+	 * @param string $lang language code that has been specified in form definition in XML file
+ 	 *
+	 * @return string HTML code of label of field as string
+	 */
+	public abstract function generateLabel($form, $lang);
+
 
 	/**
 	 * Get type of field
