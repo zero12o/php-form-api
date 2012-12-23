@@ -39,24 +39,23 @@ class FormAPIFactory {
 	 * Create FormAPI instance from XML file
 	 *
 	 * @param string $xml XML filename and location
-	 * @param string $target URL of target php file, that receive the request
-	 * @param Model $model model object, that process the request
+	 * @param string $action URL of target php file, that receive the request
 	 *
 	 * @return FormAPI instance of control object
 	 * @todo Implements Model creation from XML file
 	 */
-	public function create($xml, $model, $id = 1) {
+	public function create($xml, $action, $model, $layout=Form::vertLayout, $mode="post", $id=1) {
 
 		// form object
 		$form = new form($id);
+		$form->setMode($mode);
+		$form->setLayout($layout);
+		$form->setTarget($action);
 
 		// parsing fields tag
 		$xmlobj = new SimpleXMLElement($xml, 0, true);
 		$form->setName((string) $xmlobj->fields[0]["name"]);
-		$form->setMode((string) $xmlobj->fields[0]["mode"]);
 		$form->setTitle(intval((string) $xmlobj->fields[0]["title"]));
-		$form->setLayout((string) $xmlobj->fields[0]["layout"]);
-		$form->setTarget((string) $xmlobj->fields[0]["target"]);
 
 		// process fields
 		foreach ($xmlobj->fields[0]->field as $f) {

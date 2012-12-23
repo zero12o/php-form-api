@@ -36,7 +36,7 @@ class RadioField extends Field {
 				}
 				$w .= "<input type=\"radio\" name=\"" . $this->name . "\"" .
 					" title=\"" . $form->getMsg($this->help, $lang) . "\"" .
-					" value=\"" . $this->name . $i . "\"";
+					" value=\"" . $i . "\"";
 				if ($this->default == $i) {
 					$w .= " CHECKED";
 				}

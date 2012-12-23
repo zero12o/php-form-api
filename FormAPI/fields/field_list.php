@@ -33,13 +33,13 @@ class ListField extends Field {
 	public function generate($form, $lang) {
 
 			$w = "<div class=\"textc\">";
-			$w .= "<select";
+			$w .= "<select name=\"" . $this->name . "\"";
 			if ($this->length) {
 				$w .= " size=\"" . (string) $this->length . "\"";
 			}
 			$w .= ">";
 			for ($i = 0; $i < count($this->options);$i++) {
-				$w .= "<option value=\"" . $this->name . $i . "\"" .
+				$w .= "<option value=\"" . $i . "\"" .
 					" title=\"" . $form->getMsg($this->help, $lang) . "\"";
 				if ($this->default == $i) {
 					$w .= " selected";
