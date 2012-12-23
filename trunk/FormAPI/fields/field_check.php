@@ -36,8 +36,8 @@ class CheckField extends Field {
 				$w .= "<br />";
 			}
 			$w .= "<input type=\"checkbox\"" .
-				" name=\"" . $this->name . "\"" .
-				" value=\"" . $this->name . $i . "\"" .
+				" name=\"" . $this->name . "[]\"" .
+				" value=\"" . $i . "\"" .
 				" title=\"" . $form->getMsg($this->help, $lang) . "\"" .
 				" />" .
 				$form->getMsg($this->options[$i], $lang) . " ";

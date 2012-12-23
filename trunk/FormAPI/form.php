@@ -37,7 +37,7 @@ class Form {
 	public function __construct($id) {
 
 		$this->id = $id;		
-		$this->target = "upform.php";		
+		$this->target = NULL;		
 		$this->name = NULL;
 		$this->mode = "post";
 		$this->title = NULL;
@@ -192,11 +192,10 @@ class Form {
 	  *
 	  * @param string $lang language for the form that has been specified in XML file
 	  * @param int $full 0/1 generate only form/generate full html page
-	  * @param string $layout layout of the form  (i.e. vertical, horizontal, ...)
 	  *
 	  * @return HTML form definition as string 
 	  */
-	public function generate($lang, $full = 1, $layout = "vertical") {
+	public function generate($lang, $full = 1) {
 		$formHtml = "";
 		if ($full) {
 			$formHtml .= "<html><head><title>" .
@@ -208,7 +207,7 @@ class Form {
 		$formHtml .= "<p class=\"titlec\">" .
 			$this->getMsg($this->title, $lang) . "</P>";
 
-		if($layout === self::horizLayout) {
+		if($this->layout === self::horizLayout) {
 			$formHtml .= "<table class=\"formtable\">";
 			$formHtml .= "<tr>";
 			foreach ($this->fields as $f) {

@@ -1,5 +1,5 @@
 <form>
-<fields name="sample" title="0" table="users" mode="POST" target="upform.php">
+<fields name="sample" title="0" mode="POST">
 	<field id="1" name="user" label="1" type="text" length="20" maxlength="20" help="11" requested="yes">101</field>
 	<field id="2" name="birth" label="2" type="text" length="12" maxlength="12" help="12" requested="yes" regexp="/^[0-9]{4}.[0-9]{2}.[0-9]{2}$/">201</field>
 	<field id="3" name="hobbycheck" label="5" type="check" length="3" help="13">

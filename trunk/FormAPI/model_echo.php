@@ -14,8 +14,7 @@ class EchoModel extends Model {
 	/**
 	 * Default constructor
 	 */
-	public function __construct()	{		
-
+	public function __construct() {
 	}
 
 	/**
@@ -25,24 +24,29 @@ class EchoModel extends Model {
 	 *
 	 * @return string HTML representation of the data
 	 */
-	public function insert($values) {
+	public function process($values, $form) {
+		$fields = $form->getFields();
 		$response = "<table>";
-		foreach(array_keys($values) as $key) {
-			$response .= "<tr><td><b>" . $key . "</b></td><td>" . $values[$key] . "</td></tr>";
+
+		foreach ($fields as $f) {
+			$name = $f->getName();
+			if (isset($values[$name])) {
+				$response .= "<tr><td><b>" . $name . "</b></td>";
+				if (is_array($values[$name])) {
+					$response .= "<td>";
+					foreach ($values[$name] as $v) {
+						$response .= $v . " ";
+					}
+					$response .= "</td></tr>";
+				} else {
+					$response .= "<td>" . $values[$name] . "</td></tr>";
+				}
+			} else {
+				$response .= "<tr><td><b>" . $name . "</b></td><td>-</td></tr>";
+			}
 		}
 		$response .= "</table>";
 		return $response;
-	}
-
-	/**
-	 * Create HTML representation of the data
-	 *
-	 * @param <string, string> $value validated key-value pair, key contains the fields names
-	 *
-	 * @return string HTML representation of the data
-	 */
-	public function update($values) {
-		return $this->insert($values);
 	}
 
 	/**
