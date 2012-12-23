@@ -45,12 +45,6 @@ class RadioField extends Field {
 			$w .= "</div>";
 		return $w;
 	}
-
-	public function generateLabel($form, $lang) {
-		$w = "<div class=\"labelc\">" . 
-				$form->getMsg($this->label, $lang) . "</div>";
-		return $w;
-	}
 }
 
 ?>
