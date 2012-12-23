@@ -42,12 +42,6 @@ class FileField extends Field {
 				"\" name=\"" . $this->name . "\" /></div>";
 		return $w;
 	}
-
-	public function generateLabel($form, $lang) {
-		$w = "<div class=\"labelc\">" . 
-			$form->getMsg($this->label, $lang) . "</div>";
-		return $w;
-	}
 }
 
 ?>

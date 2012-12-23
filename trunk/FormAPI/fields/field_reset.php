@@ -30,12 +30,6 @@ class ResetField extends Field {
 			" /></div>";
 		return $w;
 	}
-
-	public function generateLabel($form, $lang) {
-		$w = "<div>&nbsp;</div>";
-		return $w;
-	}
-
 }
 
 ?>

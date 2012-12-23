@@ -1,10 +1,21 @@
 <?php
+
+/**
+ * Process uploaded form data
+ *
+ * Sample code
+ */
+
+/**
+ * User defined callback function if field validation fails.
+ *
+ * @param Field $f field object with invalid content
+ */
 	function request_error_callback($f) {
 		echo "Invalid value: " . $f->getName();
 	}
 
 	try {
-
 		include_once("FormAPI/import.php");
 		include_once("config.php");
 

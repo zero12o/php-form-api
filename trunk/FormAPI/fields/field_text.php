@@ -41,13 +41,6 @@ class TextField extends Field {
 			"</div>";
 		return $w;
 	}
-
-	public function generateLabel($form, $lang) {
-		$w = "<div class=\"labelc\">" . 
-			$form->getMsg($this->label, $lang) . "</div>";
-		return $w;
-	}
-
 }
 
 ?>

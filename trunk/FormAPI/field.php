@@ -49,16 +49,19 @@ abstract class Field {
 	public abstract function generate($form, $lang);
 
 	/**
-	 * Abstract function that responsible for creating HTML code of the field. This code 
-	 * retrun only label of the field between <div> tag.
+	 * Function that is responsible for creating HTML code the  
+	 * label of the field between <div> tags.
 	 *
 	 * @param Form $form form object that contains the field instance
 	 * @param string $lang language code that has been specified in form definition in XML file
  	 *
 	 * @return string HTML code of label of field as string
 	 */
-	public abstract function generateLabel($form, $lang);
-
+	public function generateLabel($form, $lang) {
+		$w = "<div class=\"labelc\">" .
+			$form->getMsg($this->label, $lang) . "</div>";
+		return $w;
+	}
 
 	/**
 	 * Get type of field
