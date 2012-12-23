@@ -66,7 +66,7 @@ class FormAPI {
 	
 
 	/**
-	 * Handling client request. This function responsible for validating responded values.
+	 * Handling client request. This function responsible for validating values sent by the form.
 	 *
 	 * @param <string,string> $request hashmap of the request in the following form: <field_name, value>
 	 *
@@ -89,7 +89,6 @@ class FormAPI {
 		$response = $this->model->insert($checked_request);
 		echo $response;
 	}
-
 }
 
 ?>

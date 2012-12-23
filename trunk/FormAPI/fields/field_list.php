@@ -1,20 +1,33 @@
 <?php
 
+/**
+  * Field class to generate and select List.
+  *
+  * @property string $type the type of the field (i.e. list).
+  * @property int $label label ID of Field
+  * @property int $length number of visible items, 0 combo list
+  * @property string[] $options label IDs for list items
+  *
+  * @package formapi
+  * @author Zoltan Siki <siki@agt.bme.hu> and Zoltan Koppanyi <zoltan.koppanyi@gmail.com>
+  * @version 0.1
+  * @todo title popup doesnot work
+  */
+
 class ListField extends Field {
 
-	protected $label = 0;
-	protected $length = 10;
-	protected $help = -1;
+	protected $label;
+	protected $length;
 	protected $options = array();
-
 	
-	public function __construct($id, $name, $label, $length, $help, $options) {
-		$this->id = $id;
-		$this->name = $name;
+	public function __construct($id, $name, $label, $options, $length=10,
+		$requested=false, $default=NULL, $help=NULL) {
+
+		parent::__construct($id, $name, $requested, $default, NULL, $help);
 		$this->label = $label;
 		$this->length = $length;
-		$this->help = $help;
 		$this->options = $options;
+		$this->type = "list";
 	}
 
 	public function generate($form, $lang) {
@@ -26,7 +39,8 @@ class ListField extends Field {
 			}
 			$w .= ">";
 			for ($i = 0; $i < count($this->options);$i++) {
-				$w .= "<option value=\"" . $this->name . $i . "\"";
+				$w .= "<option value=\"" . $this->name . $i . "\"" .
+					" title=\"" . $form->getMsg($this->help, $lang) . "\"";
 				if ($this->default == $i) {
 					$w .= " selected";
 				}
@@ -43,16 +57,6 @@ class ListField extends Field {
 				$form->getMsg($this->label, $lang) . "</div>";
 			return $w;
 		
-	}
-
-
-	/**
-	 * Get type of field
-	 *
-	 * @return string type of field
-	 */
-	public function getType() {
-		return "list";
 	}
 }
 
