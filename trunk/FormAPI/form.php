@@ -269,13 +269,13 @@ class Form {
 	 * @param int $id message index in messages array
 	 * @param string $lang language of the message
 	 *
-	 * @return text of the meassage
+	 * @return text of the message
 	 */
 	public function getMsg($id, $lang) {
 		if (isset($this->messages[$id][$lang])) {
 			return $this->messages[$id][$lang];
 		}
-		return "";
+		return $id;
 	}
 
 	/**

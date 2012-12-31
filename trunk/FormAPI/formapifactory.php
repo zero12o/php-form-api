@@ -73,6 +73,7 @@ class FormAPIFactory {
 			$options = NULL;
 
 			// create text field
+			// TODO change to switch
 			if($f["type"] == "text") {
 				$label = intval((string) $f["label"]);
 				$length = intval((string) $f["length"]);
@@ -126,6 +127,17 @@ class FormAPIFactory {
 
 				$fields[$id] = new ListField($id, $name, $label, $options, $length, 
 					$requested, $default, $help);
+			}
+			// create filelist field
+			if($f["type"] == "filelist") {
+
+				$label = intval((string) $f["label"]);
+				$length = intval((string) $f["length"]);
+				$dir = (string) $f["dir"];
+				$recursdirs = (isset($f["recursdirs"])) ? (string) $f["recursdirs"] : false;
+
+				$fields[$id] = new FileListField($id, $name, $label, $regexp, $dir, 
+					$recursdirs, $length, $requested,$help);
 			}
 
 			// create file field

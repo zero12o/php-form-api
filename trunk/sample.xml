@@ -31,6 +31,7 @@
 		<option>55</option>
 	</field>
 	<field id="7" name="img" label="61" type="file" help="12"></field>
+	<field id="10" name="flist" label="71" type="filelist" dir="." regexp="/.*\.php$/" recursdirs="1" help="12"></field>
 	<field id="8" name="submit" label="3" type="submit" help="18"></field>
 	<field id="9" name="reset" label="4" type="reset" help="19"></field> 
 </fields>
@@ -75,5 +76,7 @@
 	<message id="55" language="hu">Php</message>
 	<message id="61" language="en">Image file</message>
 	<message id="61" language="hu">Kep fajl</message>
+	<message id="71" language="en">File</message>
+	<message id="71" language="hu">Fajl</message>
 </messages>
 </form>
