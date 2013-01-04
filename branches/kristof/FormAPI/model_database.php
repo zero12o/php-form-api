@@ -28,10 +28,7 @@ class DatabaseModel {
 
 	}
 
-	public function insert($values) {
-	}
-
-	public function update($values) {
+	public function process($values, $form) {
 	}
 
 	public function access($values) {
