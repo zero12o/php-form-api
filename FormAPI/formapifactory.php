@@ -2,7 +2,6 @@
 
 include_once("import.php");
 
-
 /**
   * Singleton class for creating FormAPI control object. This class responsible for initializing the FormAPI control object.
   * With its @see FormAPIFactory::create($xml, $target, $model, $id = 1)  
@@ -15,7 +14,6 @@ include_once("import.php");
   * @version 0.1
   */
 class FormAPIFactory {
-
 	private static $instance;
 	
 	/**
@@ -25,72 +23,70 @@ class FormAPIFactory {
 	private function __construct()	{
 	}
 
-
 	/**
 	 * Create and getting the singelton instance
 	 *
 	 * @return FormAPIFactory instance of factory class
 	 */
-	public static function getInstance()
-	  {
-	    if ( is_null( self::$instance ) )
-	    {
-	      self::$instance = new self();
-	    }
-	    return self::$instance;
-	  }
+	public static function getInstance() {
+		if (is_null( self::$instance)) {
+			self::$instance = new self();
+	    	}
+		return self::$instance;
+	}
 
 	/**
 	 * Create FormAPI instance from XML file
 	 *
 	 * @param string $xml XML filename and location
-	 * @param string $target URL of target php file, that receive the request
-	 * @param Model $model model object, that process the request
+	 * @param string $action URL of target php file, that receive the request
 	 *
 	 * @return FormAPI instance of control object
 	 * @todo Implements Model creation from XML file
 	 */
-	public function create($xml, $target, $model, $id = 1) {
+	public function create($xml, $action, $model, $layout=Form::vertLayout, $mode="post", $id=1) {
 
 		// form object
-		$form = new form($id, $target);
+		$form = new form($id);
+		$form->setMode($mode);
+		$form->setLayout($layout);
+		$form->setTarget($action);
 
 		// parsing fields tag
 		$xmlobj = new SimpleXMLElement($xml, 0, true);
 		$form->setName((string) $xmlobj->fields[0]["name"]);
-		$form->setMode((string) $xmlobj->fields[0]["mode"]);
-		$form->setTitle((string) $xmlobj->fields[0]["title"]);
-		$form->setLayout((string) $xmlobj->fields[0]["layout"]);
+		$form->setTitle(intval((string) $xmlobj->fields[0]["title"]));
 
 		// process fields
 		foreach ($xmlobj->fields[0]->field as $f) {
-			$id = intval((string) $f["id"]);
 			$fields = &$form->getFields();
 
 			$id = intval((string) $f["id"]);
 			$name = (string) $f["name"];
+			$requested = ((string) $f["requested"] == "yes") ? true : false;
+			$w = (string) $f;
+			$default = (strlen($w)) ? intval($w) : NULL;
 			$regexp = (string) $f["regexp"];
-			$requested = (string) $f["requested"];
-			unset($options);
+			$w = (string) $f["help"];
+			$help = (strlen($w)) ? intval($w) : NULL;
+//			unset($options);
+			$options = NULL;
 
 			// create text field
+			// TODO change to switch
 			if($f["type"] == "text") {
 				$label = intval((string) $f["label"]);
-				$help = intval((string) $f["help"]);
 				$length = intval((string) $f["length"]);
 				$maxlength = intval((string) $f["maxlength"]);
-				$default = intval((string) $f["default"]);
 
-				$fields[$id] = new TextField($id, $name, $label, $length, $maxlength, $help);
-				$fields[$id]->setDefault($default);
+				$fields[$id] = new TextField($id, $name, $label, $length, $maxlength,
+					$requested, $default, $regexp, $help);
 			}
 
 			// create check field	
 			if($f["type"] == "check") {
 				$label = intval((string) $f["label"]);
 				$length = intval((string) $f["length"]);
-				$help = intval((string) $f["help"]);
-				$default = intval((string) $f["default"]);
 
 				if (isset($f->option)) {					
 					foreach ($f->option as $o) {
@@ -98,16 +94,14 @@ class FormAPIFactory {
 					}
 				}
 
-				$fields[$id] = new CheckField($id, $name, $label, $length, $help, $options);
-				$fields[$id]->setDefault($default);
+				$fields[$id] = new CheckField($id, $name, $label, $options, $length,
+					$requested, $default, $help);
 			}
 
 			// create radio field
 			if($f["type"] == "radio") {
 				$label = intval((string) $f["label"]);
 				$length = intval((string) $f["length"]);
-				$help = intval((string) $f["help"]);
-				$default = intval((string) $f["default"]);
 
 				if (isset($f->option)) {
 					foreach ($f->option as $o) {
@@ -115,8 +109,8 @@ class FormAPIFactory {
 					}
 				}
 
-				$fields[$id] = new RadioField($id, $name, $label, $length, $help, $options);
-				$fields[$id]->setDefault($default);
+				$fields[$id] = new RadioField($id, $name, $label, $options, $length, 
+					$requested, $default, NULL, $help);
 			}
 
 			// create list field
@@ -124,8 +118,6 @@ class FormAPIFactory {
 
 				$label = intval((string) $f["label"]);
 				$length = intval((string) $f["length"]);
-				$help = intval((string) $f["help"]);
-				$default = intval((string) $f["default"]);
 
 				if (isset($f->option)) {
 					foreach ($f->option as $o) {
@@ -133,18 +125,26 @@ class FormAPIFactory {
 					}
 				}
 
-				$fields[$id] = new ListField($id, $name, $label, $length, $help, $options);
-				$fields[$id]->setDefault($default);
-				
+				$fields[$id] = new ListField($id, $name, $label, $options, $length, 
+					$requested, $default, $help);
+			}
+			// create filelist field
+			if($f["type"] == "filelist") {
+
+				$label = intval((string) $f["label"]);
+				$length = intval((string) $f["length"]);
+				$dir = (string) $f["dir"];
+				$recursdirs = (isset($f["recursdirs"])) ? (string) $f["recursdirs"] : false;
+
+				$fields[$id] = new FileListField($id, $name, $label, $regexp, $dir, 
+					$recursdirs, $length, $requested,$help);
 			}
 
 			// create file field
 			if($f["type"] == "file") {
 				$label = intval((string) $f["label"]);
-				$help = intval((string) $f["help"]);
 				$length = intval((string) $f["length"]);
 				$maxlength = intval((string) $f["maxlength"]);
-				$default = intval((string) $f["default"]);
 
 				if (isset($f->option)) {
 					foreach ($f->option as $o) {
@@ -152,49 +152,34 @@ class FormAPIFactory {
 					}
 				}
 
-				$fields[$id] = new FileField($id, $name, $label, $length, $maxlength, $help);
-				$fields[$id]->setDefault($default);
+				$fields[$id] = new FileField($id, $name, $label, $length, $maxlength,
+					$requested, $help);
 			}
 
 			// create submit field
 			if($f["type"] == "submit") {
 				$label = intval((string) $f["label"]);
-				$fields[$id] = new SubmitField($id, $name, $label, $length, $help, $options);
+				$fields[$id] = new SubmitField($id, $name, $label, $help);
 			}
 
 			// create reset field
 			if($f["type"] == "reset") {
 				$label = intval((string) $f["label"]);
-				$fields[$id] = new ResetField($id, $name, $label, $length, $help, $options);
+				$fields[$id] = new ResetField($id, $name, $label, $help);
 			}
 
 			//TODO: Add XML process logic for further fields
-
+		}
 			// create Zipcode field
 			if($f["type"] == "zipcode") {
 				$label = intval((string) $f["label"]);
-				$help = intval((string) $f["help"]);
 				$length = intval((string) $f["length"]);
 				$maxlength = intval((string) $f["maxlength"]);
-				$default = intval((string) $f["default"]);
 
-				$fields[$id] = new ZipCodeField($id, $name, $label, $length, $maxlength, $help);
-				$fields[$id]->setDefault($default);
+				$fields[$id] = new ZipCodeField($id, $name, $label, $length, $maxlength,$requested, $default, $regexp, $help);
 			}
-
-			//Set regexp and requested values
-			if($fields[$id] != null) {
-				$fields[$id]->setRegexp($regexp);
-				if($requested=="yes") {
-					$fields[$id]->setRequested(true);
-				} else {
-					$fields[$id]->setRequested(false);
-				}
-			}
-
-		}
-
-		// process messages and inject into Form object
+			
+// process messages and inject into Form object
 		foreach ($xmlobj->messages[0]->message as $m) {
 			$messages = &$form->getMessages();
 			$messages[(string) $m["id"]][(string) $m["language"]] = (string) $m;
@@ -211,3 +196,4 @@ class FormAPIFactory {
 }
 
 ?>
+
