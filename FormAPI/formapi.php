@@ -93,7 +93,7 @@ class FormAPI {
 				}
 			}
 		}
-		$response = $this->model->insert($checked_request);
+		$response = $this->model->process($checked_request,$this->form);
 		echo $response;
 	}
 }

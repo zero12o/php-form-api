@@ -12,6 +12,5 @@
 	include_once("fields/field_reset.php");
 	include_once("fields/field_submit.php");
 	include_once("fields/field_text.php");
-	include_once("fields/field_filelist.php");
 	include_once("fields/field_zipcode.php");
 ?>
