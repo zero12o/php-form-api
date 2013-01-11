@@ -32,7 +32,7 @@
 	</field>
 	<field id="7" name="img" label="61" type="file" help="12"></field>
 	<field id="10" name="flist" label="71" type="filelist" dir="." regexp="/.*\.php$/" recursdirs="1" help="12"></field>
-	<field id="211" name="zipcode" label="2111" type="zipcode" length="4" maxlength="4" help="12" regexp="/^[1-9]{1}[0-9]{3}$/"></field>
+	<field id="211" name="zipcode" label="2111" type="text" length="4" maxlength="4" help="2112" regexp="/^[1-9]{1}[0-9]{3}$/"></field>
 	<field id="8" name="submit" label="3" type="submit" help="18"></field>
 	<field id="9" name="reset" label="4" type="reset" help="19"></field> 
 </fields>
@@ -81,5 +81,7 @@
 	<message id="71" language="hu">Fajl</message>
 	<message id="2111" language="hu">Iranyitoszam</message>
 	<message id="2111" language="en">Zipcode</message>
+	<message id="2112" language="hu">Irja be az iranyitoszamat!</message>
+	<message id="2112" language="en">Please input your zipcode.</message>
 </messages>
 </form>
