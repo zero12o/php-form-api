@@ -13,4 +13,6 @@
 	include_once("fields/field_submit.php");
 	include_once("fields/field_text.php");
 	include_once("fields/field_zipcode.php");
+	include_once("fields/field_houseno.php");
+	include_once("fields/field_country.php");
 ?>
