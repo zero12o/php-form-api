@@ -179,6 +179,23 @@ class FormAPIFactory {
 				$fields[$id] = new ZipCodeField($id, $name, $label, $length, $maxlength,$requested, $default, $regexp, $help);
 			}
 			
+			// create House number field
+			if($f["type"] == "houseno") {
+				$label = intval((string) $f["label"]);
+				$length = intval((string) $f["length"]);
+				$maxlength = intval((string) $f["maxlength"]);
+
+				$fields[$id] = new HouseNoField($id, $name, $label, $length, $maxlength,$requested, $default, $regexp, $help);
+			}
+			
+			// create Country field
+			if($f["type"] == "country") {
+				$label = intval((string) $f["label"]);
+				$length = intval((string) $f["length"]);
+				$maxlength = intval((string) $f["maxlength"]);
+
+				$fields[$id] = new CountryField($id, $name, $label, $length, $maxlength,$requested, $default, $regexp, $help);
+			}
 // process messages and inject into Form object
 		foreach ($xmlobj->messages[0]->message as $m) {
 			$messages = &$form->getMessages();
