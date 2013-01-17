@@ -18,16 +18,32 @@ include_once("import.php");
   * @version 0.1
   */
 class Form {
+	const horizLayout = 0;
+	const vertLayout = 1;
+
 	protected $id;
+	protected $target;
 	protected $name;
 	protected $mode;
 	protected $title;
 	protected $layout;
-	protected $target;
 	protected $fields = array();
 	protected $messages = array();
-
 	
+	/**
+	  * Default constructor 
+	  *
+	  */
+	public function __construct($id) {
+
+		$this->id = $id;		
+		$this->target = NULL;		
+		$this->name = NULL;
+		$this->mode = "post";
+		$this->title = NULL;
+		$this->layout = self::vertLayout;
+	}
+
 	/**
 	 * Get unique ID of form
 	 *
@@ -61,7 +77,9 @@ class Form {
 	 * @param string $mode GET or POST mode
 	 */
 	public function setMode($mode) {
-		$this->mode = $mode;
+		if (strtolower($mode) == "post" || strtolower($mode) == "get") {
+			$this->mode = $mode;
+		}
 	}
 
 	/**
@@ -95,10 +113,11 @@ class Form {
 	 * Set the layout: horizontal, vertical
 	 *
 	 * @param string $layout layout: horizontal, vertical
-	 * @todo check that the value is in {horizontal, vertical, ...} or use enum datastructure
 	 */
 	public function setLayout($layout) {
-		$this->layout = $layout;
+		if ($layout === self::horizLayout || $layout === self::vertLayout) {
+			$this->layout = $layout;
+		}
 	}
 
 	/**
@@ -114,10 +133,12 @@ class Form {
 	 * Set the target file that processes the form and/or handle the request
 	 *
 	 * @param string $target location of target php file
-	 * @todo it can be checked that the targat file exists
+	 * @todo it can be checked that the target file exists
 	 */
 	public function setTarget($target) {
-		$this->target = $target;		
+		if (! empty($target)) {
+			$this->target = $target;		
+		}
 	}
 
 	/**
@@ -128,7 +149,6 @@ class Form {
 	public function getTarget() {
 		return $this->target;		
 	}
-
 
 	/**
 	 * Set the list of fields that will be displayed while generating form
@@ -168,24 +188,14 @@ class Form {
 	}
 
 	/**
-	  * Default construct 
-	  *
-	  */
-	public function __construct($id, $target) {
-		$this->id = $id;		
-		$this->target = $target;		
-	}
-
-	/**
 	  * Generate the HTML form
 	  *
 	  * @param string $lang language for the form that has been specified in XML file
 	  * @param int $full 0/1 generate only form/generate full html page
-	  * @param string $layout layout of the form  (i.e. vertical, horizontal, ...)
 	  *
 	  * @return HTML form definition as string 
 	  */
-	public function generate($lang, $full = 1, $layout = "vertical") {
+	public function generate($lang, $full = 1) {
 		$formHtml = "";
 		if ($full) {
 			$formHtml .= "<html><head><title>" .
@@ -197,7 +207,7 @@ class Form {
 		$formHtml .= "<p class=\"titlec\">" .
 			$this->getMsg($this->title, $lang) . "</P>";
 
-		if($layout == "horizontal") {
+		if($this->layout === self::horizLayout) {
 			$formHtml .= "<table class=\"formtable\">";
 			$formHtml .= "<tr>";
 			foreach ($this->fields as $f) {
@@ -234,7 +244,6 @@ class Form {
 		if ($full) {
 			$formHtml .= "</body></html>";
 		}
-
 		return $formHtml;
 	}
 
@@ -260,13 +269,13 @@ class Form {
 	 * @param int $id message index in messages array
 	 * @param string $lang language of the message
 	 *
-	 * @return text of the meassage
+	 * @return text of the message
 	 */
 	public function getMsg($id, $lang) {
 		if (isset($this->messages[$id][$lang])) {
 			return $this->messages[$id][$lang];
 		}
-		return "";
+		return $id;
 	}
 
 	/**
@@ -274,7 +283,7 @@ class Form {
 	 *
 	 * @return string
 	 */
-	public function toString() {
+	public function __toString() {
 		$w = "<br><br>Form -";
 		foreach ($this as $attr => $val) {
 			$w .= " " . $attr . ":" . $val;

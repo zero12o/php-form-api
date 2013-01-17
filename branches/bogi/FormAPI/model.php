@@ -15,24 +15,18 @@ include_once("import.php");
   */
 abstract class Model {
 
+	public function __construct($action) {
+	}
+
 	/**
-	 * Process and store data
+	 * Process and store/update data
 	 *
 	 * @param <string, string> $value validated key-value pair, key contains the column of the table
+	 * @param Form $form form definition
 	 *
 	 * @return string process results as string 
 	 */
-	public abstract function insert($values);
-
-
-	/**
-	 * Process and update data
-	 *
-	 * @param <string, string> $value validated key-value pair, key contains the column of the table
-	 *
-	 * @return string process results as string 
-	 */
-	public abstract function update($values);
+	public abstract function process($values, $form);
 
 	/**
 	 * Implements the data access
@@ -42,6 +36,5 @@ abstract class Model {
 	 * @return <string, string> $value key-value pair, key contains the column(s) of the table, values are filled from storage
 	 */
 	public abstract function access($values);
-
 }
 ?>

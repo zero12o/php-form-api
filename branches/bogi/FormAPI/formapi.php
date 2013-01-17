@@ -33,6 +33,14 @@ class FormAPI {
 		$this->model = $model;
 	}
 
+	public function getForm() {
+		return $this->form;
+	}
+
+	public function getModel() {
+		return $this->model;
+	}
+
 	/**
 	 * Get invalid request handler
     	 *
@@ -60,13 +68,12 @@ class FormAPI {
     	 *
 	 * @return string HTML code of form 
 	 */
-	public function generate($lang, $full=1, $layout="vertical") {
-	    	return $this->form->generate($lang, $full, $layout);
+	public function generate($lang, $full=1) {
+	    	return $this->form->generate($lang, $full);
 	}
-	
 
 	/**
-	 * Handling client request. This function responsible for validating responded values.
+	 * Handling client request. This function responsible for validating values sent by the form.
 	 *
 	 * @param <string,string> $request hashmap of the request in the following form: <field_name, value>
 	 *
@@ -89,7 +96,6 @@ class FormAPI {
 		$response = $this->model->insert($checked_request);
 		echo $response;
 	}
-
 }
 
 ?>
