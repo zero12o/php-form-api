@@ -7,6 +7,6 @@
 	$dbType = "postgres";	// database server type (postgres/mysql)
 	$db = "postgres";	// database name
 	$dbUser = "apache";	// database user
-	$dbPass = "titok";	// database password
+	$dbPass = "titok";	//  database password
 
 ?>
