@@ -17,7 +17,6 @@
 
 class FileField extends Field {
 
-	protected $label;
 	protected $length;
 	protected $maxlength;
 	

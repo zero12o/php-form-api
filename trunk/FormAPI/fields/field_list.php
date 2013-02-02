@@ -16,7 +16,6 @@
 
 class ListField extends Field {
 
-	protected $label;
 	protected $length;
 	protected $options = array();
 	
@@ -28,6 +27,13 @@ class ListField extends Field {
 		$this->length = $length;
 		$this->options = $options;
 		$this->type = "list";
+	}
+
+	public function getOption($i) {
+		if (! isset($this->options[$i])) {
+			return "?";
+		}
+		return $this->options[$i];
 	}
 
 	public function generate($form, $lang) {
