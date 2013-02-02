@@ -64,10 +64,10 @@ class FormAPIFactory {
 			$id = intval((string) $f["id"]);
 			$name = (string) $f["name"];
 			$requested = ((string) $f["requested"] == "yes") ? true : false;
-			$w = (string) $f;
+			$w = trim((string) $f);
 			$default = (strlen($w)) ? intval($w) : NULL;
 			$regexp = (string) $f["regexp"];
-			$w = (string) $f["help"];
+			$w = trim((string) $f["help"]);
 			$help = (strlen($w)) ? intval($w) : NULL;
 //			unset($options);
 			$options = NULL;
@@ -83,6 +83,15 @@ class FormAPIFactory {
 					$requested, $default, $regexp, $help);
 			}
 
+			if($f["type"] == "textarea") {
+				$label = intval((string) $f["label"]);
+				$length = intval((string) $f["length"]);
+				$rows = intval((string) $f["rows"]);
+
+				$fields[$id] = new TextareaField($id, $name, $label, $length, $rows,
+					$requested, $default, $regexp, $help);
+			}
+
 			// create check field	
 			if($f["type"] == "check") {
 				$label = intval((string) $f["label"]);
@@ -90,7 +99,12 @@ class FormAPIFactory {
 
 				if (isset($f->option)) {					
 					foreach ($f->option as $o) {
-						$options[] = intval((string) $o);
+						$w =  intval((string) $o);
+						if ($w > 0) {
+							$options[] = intval((string) $o);
+						} else {
+							$options[] = (string) $o;
+						}
 					}
 				}
 

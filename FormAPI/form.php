@@ -50,7 +50,7 @@ class Form {
 	 * @return int Unique ID of form
 	 */
 	public function getId() {
-		return $id;		
+		return $this->id;		
 	}
 
 	/**
@@ -68,7 +68,7 @@ class Form {
 	 * @return string Unique unique name for this form
 	 */
 	public function getName() {
-		return $name;		
+		return $this->name;		
 	}
 
 	/**
@@ -88,7 +88,7 @@ class Form {
 	 * @return string GET or POST mode
 	 */
 	public function getMode() {
-		return $mode;		
+		return $this->mode;		
 	}
 
 	/**
@@ -106,7 +106,7 @@ class Form {
 	 * @return string title of the form
 	 */
 	public function getTitle() {
-		return $title;		
+		return $this->title;		
 	}
 
 	/**
@@ -126,7 +126,7 @@ class Form {
 	 * @return string text of layout
 	 */
 	public function getLayout() {
-		return $layout;		
+		return $this->layout;		
 	}
 
 	/**
@@ -218,7 +218,7 @@ class Form {
 			$formHtml .= "</tr>";
 			$formHtml .= "<tr>";
 			foreach ($this->fields as $f) {
-				$formHtml .= "<td> <center>";
+				$formHtml .= "<td class=\"formfield\"> <center>";
 				$formHtml .= $f->generate($this, $lang);
 				$formHtml .= "</center> </td>";
 			}
@@ -232,7 +232,7 @@ class Form {
 				$formHtml .= "<td>";
 				$formHtml .= $f->generateLabel($this, $lang);
 				$formHtml .= "</td>";
-				$formHtml .= "<td>";
+				$formHtml .= "<td class=\"formfield\">";
 				$formHtml .= $f->generate($this, $lang);
 				$formHtml .= "</td>";
 				$formHtml .= "</tr>";

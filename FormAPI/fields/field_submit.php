@@ -13,13 +13,16 @@
 
 class SubmitField extends Field {
 
-	protected $label;
-	
 	public function __construct($id, $name, $label, $help=NULL) {
 
 		parent::__construct($id, $name, false, NULL, NULL, $help);
 		$this->label = $label;
 		$this->type = "submit";
+	}
+
+	public function generateLabel($form, $lang) {
+		$w = "<div class=\"labelc\">&nbsp;</div>";
+		return $w;
 	}
 
 	public function generate($form, $lang) {

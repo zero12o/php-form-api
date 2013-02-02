@@ -15,7 +15,6 @@
   */
 class CheckField extends Field {
 
-	protected $label;
 	protected $length;
 	protected $options = array();
 	
@@ -29,20 +28,27 @@ class CheckField extends Field {
 		$this->type = "check";
 	}
 
+	public function getOption($i) {
+		if (! isset($this->options[$i])) {
+			return "?";
+		}
+		return $this->options[$i];
+	}
+
 	public function generate($form, $lang) {
-		$w = "<div class=\"labelc\">";
+		$w = "<div class=\"labelc\"><table border=\"0\"><tr>";
 		for ($i=0; $i < count($this->options);$i++) {
 			if ($this->length > 0 && $i > 0 && $i % $this->length == 0) {
-				$w .= "<br />";
+				$w .= "</tr><tr>";
 			}
-			$w .= "<input type=\"checkbox\"" .
+			$w .= "<td><input type=\"checkbox\"" .
 				" name=\"" . $this->name . "[]\"" .
 				" value=\"" . $i . "\"" .
 				" title=\"" . $form->getMsg($this->help, $lang) . "\"" .
 				" />" .
-				$form->getMsg($this->options[$i], $lang) . " ";
+				$form->getMsg($this->options[$i], $lang) . "</td>";
 		}
-		$w .= "</div>";
+		$w .= "</tr></table></div>";
 		return $w;
 	}
 }

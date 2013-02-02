@@ -14,7 +14,6 @@
   */
 class RadioField extends Field {
 
-	protected $label;
 	protected $length;
 	protected $options = array();
 
@@ -26,6 +25,13 @@ class RadioField extends Field {
 		$this->length = $length;
 		$this->options = $options;
 		$this->type = "radio";
+	}
+
+	public function getOption($i) {
+		if (! isset($this->options[$i])) {
+			return "?";
+		}
+		return $this->options[$i];
 	}
 
 	public function generate($form, $lang) {

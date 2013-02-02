@@ -14,6 +14,7 @@ include_once("import.php");
   * @property int $default the message id of default text or ordinal value of default radio, list item, NULL represents that there is no default value
   * @property string regexp regular expression to validate user input, NULL if no validation
   * @property int $help the message id of popup message for the field, NULL if no help message
+  * @property int $label label ID of Field
   *
   * @package formapi
   * @author Zoltan Siki <siki@agt.bme.hu> and Zoltan Koppanyi <zoltan.koppanyi@gmail.com>
@@ -27,6 +28,7 @@ abstract class Field {
 	protected $default;
 	protected $regexp;
 	protected $help;
+	protected $label;
 
 	function __construct($id, $name, $requested=false, $default=NULL, $regexp=NULL, $help=NULL) {
 		$this->id = $id;
@@ -35,6 +37,7 @@ abstract class Field {
 		$this->default = $default;
 		$this->regexp = $regexp;
 		$this->help = $help;
+		$this->label = "";
 	}
 
 	/**
@@ -175,21 +178,30 @@ abstract class Field {
 	 * @return boolean true, if the value is valid, false otherwise
 	 */
 	public function check($value) {
+		// skip array (check, radio, list)
+		if (is_array($value)) {
+			return true;
+		}
 		$value = trim($value);
 		// obligatory field?
-		if($this->requested and empty($value)) {
+		if ($this->requested and empty($value)) {
 			return false;
 		}
 		// empty value accepted
 		if (empty($value)) {
 			return true;
 		}
+		// check length
+		if (isset($this->maxLength) && ! empty($this->maxLength) &&
+			$this->maxLength < strlen($value)) {
+			return false;
+		}
 		// if regexp has not been specified, accept all value
-		if(empty($this->regexp)) {
+		if (empty($this->regexp)) {
 			return true;
 		}
 		// regular expression match
-		if(preg_match($this->regexp, $value)) {
+		if (preg_match($this->regexp, $value)) {
 			return true;
 		}
 		return false;

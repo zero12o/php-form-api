@@ -80,21 +80,23 @@ class FormAPI {
 	 * @return string message of model object after processing data
 	 */
 	public function request($request) {
+		$err = 0;
 		foreach($this->form->getFields() as $f) {
 			$name = $f->getName();
 			if (isset($request[$name])) {
-				if($f->check($request[$name]) == true) {
+				if($f->check($request[$name])) {
 					$checked_request[$name] = $request[$name];
 				} else {
 					if($this->invalidRequestHandler != null) {
 						call_user_func($this->invalidRequestHandler, $f);
 					}
-					return;
+					$err++;;
 				}
 			}
 		}
-		$response = $this->model->insert($checked_request);
-		echo $response;
+		if ($err) { return $err; }
+		$response = $this->model->process($checked_request, $this->form);
+		return $response;
 	}
 }
 

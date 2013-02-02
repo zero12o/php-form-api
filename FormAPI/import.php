@@ -5,6 +5,8 @@
 	include_once("field.php");
 	include_once("model.php");
 	include_once("model_echo.php");
+	include_once("model_csv.php");
+	include_once("model_database.php");
 	include_once("fields/field_check.php");
 	include_once("fields/field_file.php");
 	include_once("fields/field_list.php");
@@ -12,5 +14,6 @@
 	include_once("fields/field_reset.php");
 	include_once("fields/field_submit.php");
 	include_once("fields/field_text.php");
+	include_once("fields/field_textarea.php");
 	include_once("fields/field_filelist.php");
 ?>
