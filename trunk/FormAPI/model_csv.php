@@ -60,7 +60,9 @@ class CsvModel extends Model {
 						$buf .= $f->getOption($v) . $this->sep;
 					}
 				} else {
-					$buf .= $values[$name];
+					// replace special chars to space
+					$pat ="/[" . $this->fieldSep . "\\r\\n]/";
+					$buf .= preg_replace($pat, " ", $values[$name]);
 				}
 			}
 			$buf .= $this->fieldSep;

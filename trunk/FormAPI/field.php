@@ -184,7 +184,7 @@ abstract class Field {
 		}
 		$value = trim($value);
 		// obligatory field?
-		if ($this->requested and empty($value)) {
+		if ($this->requested and $value == "") {
 			return false;
 		}
 		// empty value accepted
