@@ -60,9 +60,14 @@ class CsvModel extends Model {
 						$buf .= $f->getOption($v) . $this->sep;
 					}
 				} else {
+					if ($f->getType() == "radio" || $f->getType() == "list") {
+						$w = $f->getOption($values[$name]);
+					}else {
+						$w = $values[$name];
+					}
 					// replace special chars to space
 					$pat ="/[" . $this->fieldSep . "\\r\\n]/";
-					$buf .= preg_replace($pat, " ", $values[$name]);
+					$buf .= preg_replace($pat, " ", $w);
 				}
 			}
 			$buf .= $this->fieldSep;

@@ -35,12 +35,13 @@ class RadioField extends Field {
 	}
 
 	public function generate($form, $lang) {
-			$w = "<div class=\"textc\">";
+			$w = "<div class=\"textc\"><table border=\"0\"><tr>";
 			for ($i=0; $i < count($this->options);$i++) {
 				if ($this->length > 0 && $i > 0 && $i % $this->length == 0) {
-					$w .= "<br />";
+					$w .= "</tr><tr>";
 				}
-				$w .= "<input type=\"radio\" name=\"" . $this->name . "\"" .
+				$w .= "<td><input type=\"radio\" .
+					name=\"" . $this->name . "\"" .
 					" title=\"" . $form->getMsg($this->help, $lang) . "\"" .
 					" value=\"" . $i . "\"";
 				if ($this->default == $i) {
@@ -48,7 +49,7 @@ class RadioField extends Field {
 				}
 				$w .= " />" . $form->getMsg($this->options[$i], $lang) . " ";
 			}
-			$w .= "</div>";
+			$w .= "</tr></table></div>";
 		return $w;
 	}
 }
