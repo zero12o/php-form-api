@@ -119,7 +119,12 @@ class FormAPIFactory {
 
 				if (isset($f->option)) {
 					foreach ($f->option as $o) {
-						$options[] = intval((string) $o);
+						$w =  intval((string) $o);
+						if ($w > 0) {
+							$options[] = intval((string) $o);
+						} else {
+							$options[] = (string) $o;
+						}
 					}
 				}
 
