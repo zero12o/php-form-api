@@ -1,0 +1,1 @@
+PHP object library to generate html forms from xml definition, validate and store the data in relational database. This project is based on the work of PhD students at the Faculty of Civil Engineering at the Budapest University of Technology and Economics.
